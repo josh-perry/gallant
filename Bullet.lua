@@ -26,7 +26,7 @@ function Bullet:update(dt)
 	if self.destroyed then return end
 
 	if not self.target then
-		print("Bullet has no target!")
+		self.destroyed = true
 		return
 	end
 
