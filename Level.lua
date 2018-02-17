@@ -7,6 +7,7 @@ local Level = class("Level")
 local Tile = require("Tile")
 local Gun = require("Gun")
 local Enemy = require("Enemy")
+local Bullet = require("Bullet")
 
 function Level:initialize()
 	self.tiles = {}
@@ -36,6 +37,8 @@ function Level:initialize()
 	self.enemies = {
 		Enemy:new({x = 6, y = 4}, self)
 	}
+
+	self.bullets = {}
 end
 
 function Level:update(dt)
@@ -45,6 +48,14 @@ function Level:update(dt)
 
 	for _, enemy in ipairs(self.enemies) do
 		enemy:update(dt)
+	end
+
+	for i, bullet in ipairs(self.bullets) do
+		bullet:update(dt)
+
+		if bullet.destroyed then
+			table.remove(self.bullets, i)
+		end
 	end
 end
 
@@ -66,6 +77,10 @@ function Level:draw()
 
 	for _, gun in ipairs(self.guns) do
 		gun:draw()
+	end
+
+	for _, bullet in ipairs(self.bullets) do
+		bullet:draw()
 	end
 
 	for _, enemy in ipairs(self.enemies) do
