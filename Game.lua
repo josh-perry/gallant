@@ -17,7 +17,6 @@ end
 
 function Game:draw()
   self.level:draw()
-  lg.print("LÖVE JAM 2018", 10, 10)
 end
 
 function Game:keypressed(key, unicode)
