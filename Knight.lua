@@ -26,6 +26,13 @@ function Knight:initialize(position, level)
 	self.sprite = lg.newImage("graphics/sprites/knight.png")
 end
 
+function Knight:collectFloorDosh()
+	local currentTile = self.level.tiles[self.position.x][self.position.y]
+
+	self.level.dosh = self.level.dosh + currentTile.floorDosh
+	currentTile.floorDosh = 0
+end
+
 function Knight:update(dt)
 	if not self.level then
 		return
@@ -53,6 +60,7 @@ function Knight:update(dt)
 	if reachedDestination then
 		self.movingDirection = nil
 		self:stopMoving()
+		self:collectFloorDosh()
 	end
 
 	if not moving and self.moveIntention then

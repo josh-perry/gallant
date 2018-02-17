@@ -66,7 +66,6 @@ function Level:update(dt)
 		enemy:update(dt)
 
 		if enemy.destroyed then
-			self.dosh = self.dosh + enemy.dosh
 			table.remove(self.enemies, i)
 		end
 	end
