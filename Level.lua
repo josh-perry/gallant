@@ -54,8 +54,12 @@ function Level:update(dt)
 		gun:update(dt)
 	end
 
-	for _, enemy in ipairs(self.enemies) do
+	for i, enemy in ipairs(self.enemies) do
 		enemy:update(dt)
+
+		if enemy.destroyed then
+			table.remove(self.enemies, i)
+		end
 	end
 end
 

@@ -12,6 +12,7 @@ function Bullet:initialize(target, x, y, level, size)
 	self.level = level
 	self.size = size or 4
 	self.speed = 200
+	self.damage = 5
 end
 
 function Bullet:draw(x, y)
@@ -44,7 +45,9 @@ function Bullet:update(dt)
 	self.y = self.y + ((velocityY * self.speed) * dt)
 
 	if distance < 8 then
+		self.target = nil
 		self.destroyed = true
+		self.target:damage(self.damage)
 	end
 end
 
