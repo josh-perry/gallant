@@ -3,7 +3,7 @@ local lg = love.graphics
 
 function love.load()
   Game = Game:new()
-  love.graphics.setBackgroundColor(86, 113, 112, 255)
+  lg.setBackgroundColor(86, 113, 112, 255)
 end
 
 function love.draw()
