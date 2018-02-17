@@ -11,7 +11,7 @@ function Bullet:initialize(target, x, y, level, size)
 	self.y = y
 	self.level = level
 	self.size = size or 4
-	self.speed = 200
+	self.speed = 600
 	self.damage = 5
 end
 

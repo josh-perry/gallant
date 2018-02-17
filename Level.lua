@@ -29,15 +29,21 @@ function Level:initialize()
 		end
 	end
 
-	self.guns = {
-		Gun:new({x = 1, y = 1}, self),
-		Gun:new({x = 10, y = 10}, self),
-		Gun:new({x = 1, y = 10}, self),
-		Gun:new({x = 10, y = 1}, self)
-	}
+	self.guns = {}
 
 	self.enemies = {
-		Enemy:new({x = 6, y = 4}, self)
+		Enemy:new({x = 6, y = 4}, self),
+		Enemy:new({x = 7, y = 4}, self),
+		Enemy:new({x = 8, y = 4}, self),
+		Enemy:new({x = 9, y = 4}, self),
+		Enemy:new({x = 2, y = 2}, self),
+		Enemy:new({x = 2, y = 3}, self),
+		Enemy:new({x = 2, y = 4}, self),
+		Enemy:new({x = 2, y = 5}, self),
+		Enemy:new({x = 2, y = 6}, self),
+		Enemy:new({x = 9, y = 9}, self),
+		Enemy:new({x = 8, y = 9}, self),
+		Enemy:new({x = 7, y = 9}, self)
 	}
 
 	self.bullets = {}

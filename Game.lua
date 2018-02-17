@@ -32,10 +32,19 @@ function Game:draw()
   lg.print("KNIGHTCOINS: "..self.level.dosh)
 end
 
+function Game:buildGun()
+  if self.knight:lookingAtWall() then
+    self.knight:buildGun()
+  end
+end
+
 function Game:keypressed(key, unicode)
 end
 
 function Game:keyreleased(key)
+  if key == "space" then
+    self:buildGun()
+  end
 end
 
 return Game

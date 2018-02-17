@@ -1,6 +1,8 @@
 -- Libraries
 local class = require("libs/middleclass/middleclass")
 
+local Gun = require("Gun")
+
 local lg = love.graphics
 local lk = love.keyboard
 
@@ -148,6 +150,43 @@ end
 
 function Knight:snapPosition(x, y)
 	self.position = {x = x, y = y}
+end
+
+function Knight:lookingAtWall()
+	if self.facing == "left" then
+		return self.level.tiles[self.position.x - 1][self.position.y].solid
+	elseif self.facing == "right" then
+		return self.level.tiles[self.position.x + 1][self.position.y].solid
+	elseif self.facing == "up" then
+		return self.level.tiles[self.position.x][self.position.y - 1].solid
+	elseif self.facing == "down" then
+		return self.level.tiles[self.position.x][self.position.y + 1].solid
+	end
+end
+
+function Knight:buildGun()
+	local gunCost = 50
+
+	if self.level.dosh < gunCost then
+		return
+	end
+
+	local gun = nil
+
+	if self.facing == "left" then
+		gun = Gun:new({x = self.position.x - 1, y = self.position.y}, self.level)
+	elseif self.facing == "right" then
+		gun = Gun:new({x = self.position.x + 1, y = self.position.y}, self.level)
+	elseif self.facing == "up" then
+		gun = Gun:new({x = self.position.x, y = self.position.y - 1}, self.level)
+	elseif self.facing == "down" then
+		gun = Gun:new({x = self.position.x , y = self.position.y + 1}, self.level)
+	else
+		return
+	end
+
+	table.insert(self.level.guns, gun)
+	self.level.dosh = self.level.dosh - gunCost
 end
 
 return Knight
