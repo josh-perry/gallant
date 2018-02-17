@@ -23,10 +23,6 @@ function love.keypressed(key, unicode)
   Game:keypressed(key, unicode)
 end
 
-function love.textinput(t)
-  Game:textinput(t)
-end
-
 function love.keyreleased(key)
   Game:keyreleased(key)
 end

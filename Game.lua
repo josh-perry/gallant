@@ -14,11 +14,12 @@ function Game:initialize()
   self.level = Level:new()
 
   self.princess = Princess:new(5*self.level.tilesize, 5*self.level.tilesize)
-  self.knight = Knight:new(3*self.level.tilesize, 4*self.level.tilesize)
+  self.knight = Knight:new({x = 3, y = 4}, self.level)
 end
 
 function Game:update(dt)
   self.level:update(dt)
+  self.knight:update(dt)
 end
 
 function Game:draw()
