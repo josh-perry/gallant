@@ -15,6 +15,8 @@ function Level:initialize()
 	self.tilesX = 10
 	self.tilesY = 10
 
+	self.dosh = 100
+
 	for x = 1, self.tilesX do
 		self.tiles[x] = {}
 
@@ -58,6 +60,7 @@ function Level:update(dt)
 		enemy:update(dt)
 
 		if enemy.destroyed then
+			self.dosh = self.dosh + enemy.dosh
 			table.remove(self.enemies, i)
 		end
 	end

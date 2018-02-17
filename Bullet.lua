@@ -45,9 +45,9 @@ function Bullet:update(dt)
 	self.y = self.y + ((velocityY * self.speed) * dt)
 
 	if distance < 8 then
-		self.target = nil
 		self.destroyed = true
 		self.target:damage(self.damage)
+		self.target = nil
 	end
 end
 

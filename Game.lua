@@ -28,6 +28,8 @@ function Game:draw()
 
   self.princess:draw()
   self.knight:draw()
+
+  lg.print("KNIGHTCOINS: "..self.level.dosh)
 end
 
 function Game:keypressed(key, unicode)

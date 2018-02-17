@@ -9,6 +9,7 @@ function Enemy:initialize(position, level)
 	self.position = position
 	self.level = level
 	self.health = 25
+	self.dosh = 20
 
 	self.sprite = lg.newImage("graphics/sprites/enemy.png")
 end
