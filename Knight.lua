@@ -16,6 +16,7 @@ function Knight:initialize(position, level)
 	self.destination = nil
 	self.movingDirection = nil
 	self.level = level
+	self.facing = "down"
 
 	self.size = { w = level.tilesize, h = level.tilesize }
 	self.speed = 5
@@ -38,6 +39,10 @@ function Knight:update(dt)
 		self.moveIntention = "down"
 	elseif lk.isDown("w") then
 		self.moveIntention = "up"
+	end
+
+	if self.moveIntention ~= nil then
+		self.facing = self.moveIntention
 	end
 
 	local moving = self:isMoving()
