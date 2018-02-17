@@ -16,10 +16,10 @@ function Level:initialize()
 		self.tiles[x] = {}
 
 		for y = 1, self.tilesY do
-			self.tiles[x][y] = Tile:new(false, "graphics/floor.png")
+			self.tiles[x][y] = Tile:new(false, "graphics/tiles/floor.png")
 
 			if x == 1 or y == 1 or x == self.tilesX or y == self.tilesY then
-				self.tiles[x][y] = Tile:new(true, "graphics/wall.png")
+				self.tiles[x][y] = Tile:new(true, "graphics/tiles/wall.png")
 			end
 		end
 	end
