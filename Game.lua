@@ -15,11 +15,6 @@ function Game:initialize()
 
   self.princess = Princess:new(5*self.level.tilesize, 5*self.level.tilesize)
   self.knight = Knight:new({x = 3, y = 4}, self.level)
-
-  self.level.guns[1].target = self.knight
-  self.level.guns[2].target = self.knight
-  self.level.guns[3].target = self.knight
-  self.level.guns[4].target = self.knight
 end
 
 function Game:update(dt)

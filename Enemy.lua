@@ -1,0 +1,26 @@
+-- Libraries
+local class = require("libs/middleclass/middleclass")
+
+local lg = love.graphics
+
+local Enemy = class("Enemy")
+
+function Enemy:initialize(position, level)
+	self.position = position
+	self.level = level
+
+	self.sprite = lg.newImage("graphics/sprites/enemy.png")
+end
+
+function Enemy:draw(x, y)
+	local x = (self.position.x - 1) * self.level.tilesize
+	local y = (self.position.y - 1) * self.level.tilesize
+
+	lg.setColor(255, 255, 255)
+	lg.draw(self.sprite, x, y)
+end
+
+function Enemy:update(dt)
+end
+
+return Enemy

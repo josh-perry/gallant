@@ -6,6 +6,7 @@ local lg = love.graphics
 local Level = class("Level")
 local Tile = require("Tile")
 local Gun = require("Gun")
+local Enemy = require("Enemy")
 
 function Level:initialize()
 	self.tiles = {}
@@ -31,11 +32,19 @@ function Level:initialize()
 		Gun:new({x = 1, y = 10}, self),
 		Gun:new({x = 10, y = 1}, self)
 	}
+
+	self.enemies = {
+		Enemy:new({x = 6, y = 4}, self)
+	}
 end
 
 function Level:update(dt)
 	for _, gun in ipairs(self.guns) do
 		gun:update(dt)
+	end
+
+	for _, enemy in ipairs(self.enemies) do
+		enemy:update(dt)
 	end
 end
 
@@ -57,6 +66,10 @@ function Level:draw()
 
 	for _, gun in ipairs(self.guns) do
 		gun:draw()
+	end
+
+	for _, enemy in ipairs(self.enemies) do
+		enemy:draw()
 	end
 end
 
