@@ -16,9 +16,6 @@ function Game:initialize()
 
   self.princess = Princess:new(5*self.level.tilesize, 5*self.level.tilesize)
   self.knight = Knight:new({x = 3, y = 4}, self.level)
-
-  local bullet = Bullet:new(self.knight, 8, 8, self.level)
-  table.insert(self.level.bullets, bullet)
 end
 
 function Game:update(dt)

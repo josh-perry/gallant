@@ -1,5 +1,8 @@
 -- Libraries
 local class = require("libs/middleclass/middleclass")
+local cron = require("libs/cron/cron")
+
+local Bullet = require("Bullet")
 
 local lg = love.graphics
 
@@ -13,6 +16,22 @@ function Gun:initialize(position, level)
 
 	self.target = nil
 	self.rotation = 0
+
+	self.readyToFire = false
+
+	self.fireTimer = cron.every(1, function() self:fire() end)
+end
+
+function Gun:fire()
+	if not self.target then
+		return
+	end
+
+	local x = ((self.position.x - 1) * self.level.tilesize) + (self.level.tilesize / 2)
+	local y = ((self.position.y - 1) * self.level.tilesize) + (self.level.tilesize / 2)
+
+	local bullet = Bullet:new(self.target, x, y, self.level)
+	table.insert(self.level.bullets, bullet)
 end
 
 function Gun:draw()
@@ -50,6 +69,7 @@ function Gun:findTarget()
 end
 
 function Gun:update(dt)
+	self.fireTimer:update(dt)
 	self.target = self:findTarget()
 
 	if not self.target then

@@ -42,20 +42,20 @@ function Level:initialize()
 end
 
 function Level:update(dt)
-	for _, gun in ipairs(self.guns) do
-		gun:update(dt)
-	end
-
-	for _, enemy in ipairs(self.enemies) do
-		enemy:update(dt)
-	end
-
 	for i, bullet in ipairs(self.bullets) do
 		bullet:update(dt)
 
 		if bullet.destroyed then
 			table.remove(self.bullets, i)
 		end
+	end
+
+	for _, gun in ipairs(self.guns) do
+		gun:update(dt)
+	end
+
+	for _, enemy in ipairs(self.enemies) do
+		enemy:update(dt)
 	end
 end
 
@@ -75,12 +75,12 @@ function Level:draw()
 
 	lg.setColor(255, 255, 255)
 
-	for _, gun in ipairs(self.guns) do
-		gun:draw()
-	end
-
 	for _, bullet in ipairs(self.bullets) do
 		bullet:draw()
+	end
+
+	for _, gun in ipairs(self.guns) do
+		gun:draw()
 	end
 
 	for _, enemy in ipairs(self.enemies) do
