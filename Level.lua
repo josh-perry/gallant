@@ -37,7 +37,7 @@ function Level:draw()
 		for y = 1, self.tilesY do
 			if self.tiles[x][y] then
 				lg.setColor(255, 255, 255)
-				self.tiles[x][y]:draw(x*ts, y*ts)
+				self.tiles[x][y]:draw((x - 1)*ts, (y - 1)*ts)
 			end
 		end
 	end
