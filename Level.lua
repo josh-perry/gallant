@@ -5,6 +5,7 @@ local lg = love.graphics
 
 local Level = class("Level")
 local Tile = require("Tile")
+local Gun = require("Gun")
 
 function Level:initialize()
 	self.tiles = {}
@@ -23,9 +24,19 @@ function Level:initialize()
 			end
 		end
 	end
+
+	self.guns = {
+		Gun:new({x = 1, y = 1}, self),
+		Gun:new({x = 10, y = 10}, self),
+		Gun:new({x = 1, y = 10}, self),
+		Gun:new({x = 10, y = 1}, self)
+	}
 end
 
 function Level:update(dt)
+	for _, gun in ipairs(self.guns) do
+		gun:update(dt)
+	end
 end
 
 function Level:draw()
@@ -43,6 +54,10 @@ function Level:draw()
 	end
 
 	lg.setColor(255, 255, 255)
+
+	for _, gun in ipairs(self.guns) do
+		gun:draw()
+	end
 end
 
 return Level
