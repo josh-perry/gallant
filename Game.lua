@@ -34,7 +34,7 @@ end
 function Game:keyreleased(key)
 	if key == "space" then
 		self:gotoState("InGame")
-		self:initLevel()
+		self:initLevel("levels/1")
 		self:initUi()
 	end
 end

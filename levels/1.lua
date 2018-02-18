@@ -1,5 +1,7 @@
 local level = {}
 
+level.image = "levels/1.png"
+
 level.tip = {
 	text = "Face a wall and press space to build a turret!",
 	x = 50,

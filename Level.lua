@@ -12,7 +12,7 @@ local EnemySpawn = require("EnemySpawn")
 local Princess = require("Princess")
 local Knight = require("Knight")
 
-function Level:initialize()
+function Level:initialize(path)
 	self.tiles = {}
 	self.tilesize = 48
 	self.tilesX = 10
@@ -36,13 +36,13 @@ function Level:initialize()
 	self.bullets = {}
 	self.enemySpawns = {}
 
-	self:loadFromImage("levels/1.png", "levels/1")
+	self:loadFromImage(path)
 end
 
-function Level:loadFromImage(image, data)
-	local image = love.image.newImageData(image)
+function Level:loadFromImage(path)
+	local levelData = require(path)
 
-	local levelData = require(data)
+	local image = love.image.newImageData(levelData.image)
 
 	local floor = lg.newImage("graphics/tiles/floor.png")
 	local wall = lg.newImage("graphics/tiles/wall.png")

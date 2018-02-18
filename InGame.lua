@@ -15,8 +15,8 @@ function InGame:initialize()
   self:initLevel()
 end
 
-function InGame:initLevel()
-  self.level = Level:new()
+function InGame:initLevel(path)
+  self.level = Level:new(path)
 end
 
 function InGame:initUi()
