@@ -38,11 +38,11 @@ function Game:getLevelData()
 end
 
 function Game:draw()
-	if self.showingLevel <= 1 then
+	if self.showingLevel < table.getn(self.levels) then
 		lg.draw(self.rightArrow, 762, 207)
 	end
 
-	if self.showingLevel >= table.getn(self.levels) then
+	if self.showingLevel > 1 then
 		lg.draw(self.leftArrow, 388, 207)
 	end
 
