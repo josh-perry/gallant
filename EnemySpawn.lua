@@ -42,6 +42,20 @@ function EnemySpawn:spawnEnemy()
 
 	local enemy = Enemy:new({x = self.position.x, y = self.position.y}, self.level)
 
+	if self.enemies[1] == "red_blob" then
+		print("spawning red blob")
+		enemy.health = 25
+		enemy.dosh = 20
+		enemy.speed = 5
+		enemy.sprite = lg.newImage("graphics/sprites/enemy.png")
+	elseif self.enemies[1] == "green_blob" then
+		print("spawning green blob")
+		enemy.health = 50
+		enemy.dosh = 40
+		enemy.speed = 2
+		enemy.sprite = lg.newImage("graphics/sprites/green.png")
+	end
+
 	-- Spawn new enemy on level
 	table.insert(self.level.enemies, enemy)
 
