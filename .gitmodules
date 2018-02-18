@@ -7,3 +7,6 @@
 [submodule "libs/jumper"]
 	path = libs/jumper
 	url = https://github.com/Yonaba/Jumper.git
+[submodule "libs/stateful"]
+	path = libs/stateful
+	url = https://github.com/kikito/stateful.lua.git

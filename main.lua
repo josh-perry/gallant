@@ -1,8 +1,14 @@
+local class = require("libs/middleclass/middleclass")
+local stateful = require("libs/stateful/stateful")
+
 local Game = require("Game")
+require("InGame")
+
 local lg = love.graphics
 
 function love.load()
   Game = Game:new()
+
   lg.setBackgroundColor(86, 113, 112, 255)
 end
 
