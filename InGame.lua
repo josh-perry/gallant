@@ -49,9 +49,14 @@ function InGame:draw()
 
     lg.setColor(200, 200, 0, 150)
     lg.circle("line", lookingAtPosition.x, lookingAtPosition.y, turret:getRangeUpgrade())
+  elseif self.level.knight.facingWall then
+    local lookingAtPosition = self.level.knight:getCenterOfLookingAt()
 
-    lg.setColor(255, 255, 255)
+    lg.setColor(255, 255, 0, 100)
+    lg.circle("line", lookingAtPosition.x, lookingAtPosition.y, 200)
   end
+
+  lg.setColor(255, 255, 255)
 
   self:drawUi()
 
