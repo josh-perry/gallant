@@ -33,22 +33,28 @@ function Knight:collectFloorDosh()
 	currentTile.floorDosh = 0
 end
 
+function Knight:getMoveIntention()
+	local moveIntention = nil
+
+	if lk.isDown("a") then
+		moveIntention = "left"
+	elseif lk.isDown("d") then
+		moveIntention = "right"
+	elseif lk.isDown("s") then
+		moveIntention = "down"
+	elseif lk.isDown("w") then
+		moveIntention = "up"
+	end
+
+	return moveIntention
+end
+
 function Knight:update(dt)
 	if not self.level then
 		return
 	end
 
-	self.moveIntention = nil
-
-	if lk.isDown("a") then
-		self.moveIntention = "left"
-	elseif lk.isDown("d") then
-		self.moveIntention = "right"
-	elseif lk.isDown("s") then
-		self.moveIntention = "down"
-	elseif lk.isDown("w") then
-		self.moveIntention = "up"
-	end
+	self.moveIntention = self:getMoveIntention()
 
 	if self.moveIntention ~= nil then
 		self.facing = self.moveIntention
