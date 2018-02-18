@@ -158,4 +158,26 @@ function MovableEntity:lookingAtWall()
 	end
 end
 
+function MovableEntity:getCenterOfLookingAt()
+	local position = nil
+	local x = math.floor(self.position.x + 0.5)
+	local y = math.floor(self.position.y + 0.5)
+
+	if self.facing == "left" then
+		position = {x = x - 1, y = y}
+	elseif self.facing == "right" then
+		position = {x = x + 1, y = y}
+	elseif self.facing == "up" then
+		position = {x = x, y = y - 1}
+	elseif self.facing == "down" then
+		position = {x = x, y = y + 1}
+	end
+
+	if position then
+		position.x = ((position.x - 1) * self.level.tilesize) + (self.level.tilesize / 2)
+		position.y = ((position.y - 1) * self.level.tilesize) + (self.level.tilesize / 2)
+		return position
+	end
+end
+
 return MovableEntity

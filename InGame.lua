@@ -43,6 +43,15 @@ function InGame:draw()
 
   self.knight:draw()
 
+  if self.knight:lookingAtWall() then
+    lg.setColor(255, 255, 0, 100)
+
+    local lookingAtPosition = self.knight:getCenterOfLookingAt()
+    lg.circle("fill", lookingAtPosition.x, lookingAtPosition.y, 200)
+
+    lg.setColor(255, 255, 255)
+  end
+
   self:drawUi()
 
   if self.level.tip then

@@ -22,6 +22,8 @@ function Gun:initialize(position, level)
 	self.upgradeLevel = 1
 	self.upgradeFireRate = 0.3
 
+	self.range = 200
+
 	self.fireRate = 0.8
 	self:refreshFireTimer()
 end
@@ -39,6 +41,8 @@ function Gun:fire()
 	local y = ((self.position.y - 1) * self.level.tilesize) + (self.level.tilesize / 2)
 
 	local bullet = Bullet:new(self.target, x, y, self.level)
+	bullet.size = bullet.size + (bullet.size * (0.5 * self.upgradeLevel))
+	bullet.damage = bullet.damage + self.upgradeLevel
 	table.insert(self.level.bullets, bullet)
 end
 
@@ -62,11 +66,12 @@ function Gun:findTarget()
 		local enemyY = (enemy.position.y - 1) * self.level.tilesize
 		local distance = math.sqrt((enemyX - x) ^ 2 + (enemyY - y) ^ 2)
 
-		if closest == nil then
+
+		if closest == nil and distance <= self.range then
 			closest = enemy
 			closestDistance = distance
 		else
-			if distance < closestDistance then
+			if distance <= self.range and distance < closestDistance then
 				closest = enemy
 				closestDistance = distance
 			end

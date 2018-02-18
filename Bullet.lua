@@ -12,7 +12,7 @@ function Bullet:initialize(target, x, y, level, size)
 	self.level = level
 	self.size = size or 4
 	self.speed = 600
-	self.damage = 5
+	self.damage = 15
 end
 
 function Bullet:draw(x, y)
