@@ -1,10 +1,10 @@
 local level = {}
 
-level.data = "levels/1"
-level.image = "levels/1.png"
+level.data = "levels/2"
+level.image = "levels/2.png"
 
 level.tip = {
-	text = "Face a wall and press space to build a turret!",
+	text = "Upgrading turrets is important!",
 	x = 50,
 	y = 10,
 }
@@ -20,41 +20,35 @@ level.enemySpawns["red"] = {
 		"red_blob",
 		"red_blob",
 		"red_blob",
-		"red_blob",
-		"red_blob",
-		"red_blob",
+		"red_blob"
+	},
+	spawnDelay = 2
+}
+
+level.enemySpawns["green"] = {
+	enemies = {
+		"green_blob",
+		"green_blob",
+		"green_blob",
 		"green_blob",
 		"green_blob",
 		"green_blob",
 		"green_blob",
 		"green_blob"
 	},
-	spawnDelay = 1
-}
-
-level.enemySpawns["green"] = {
-	enemies = {
-		"green_blob",
-		"red_blob",
-		"red_blob",
-		"green_blob",
-		"red_blob",
-		"red_blob",
-		"green_blob",
-		"red_blob",
-		"red_blob",
-		"green_blob",
-		"red_blob",
-		"red_blob"
-	},
 	spawnDelay = 3
 }
 
 level.enemySpawns["blue"] = {
 	enemies = {
-		"green_blob",
-		"red_blob",
-		"red_blob"
+		"blue_blob",
+		"blue_blob",
+		"blue_blob",
+		"blue_blob",
+		"blue_blob",
+		"blue_blob",
+		"blue_blob",
+		"blue_blob"
 	},
 	spawnDelay = 1
 }
