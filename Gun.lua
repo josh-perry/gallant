@@ -19,7 +19,7 @@ function Gun:initialize(position, level)
 
 	self.readyToFire = false
 
-	self.fireTimer = cron.every(1, function() self:fire() end)
+	self.fireTimer = cron.every(0.3, function() self:fire() end)
 end
 
 function Gun:fire()
