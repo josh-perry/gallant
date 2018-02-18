@@ -3,15 +3,16 @@ local class = require("libs/middleclass/middleclass")
 
 local lg = love.graphics
 
-local Enemy = class("Enemy")
+local MovableEntity = require("MovableEntity")
+local Enemy = class("Enemy", MovableEntity)
 
 function Enemy:initialize(position, level)
-	self.position = position
-	self.level = level
 	self.health = 25
 	self.dosh = 20
 
 	self.sprite = lg.newImage("graphics/sprites/enemy.png")
+
+	MovableEntity.initialize(self, position, level)
 end
 
 function Enemy:draw(x, y)
@@ -32,12 +33,15 @@ function Enemy:damage(damage)
 	if self.health <= 0 then
 		self.destroyed = true
 
-		local currentTile = self.level.tiles[self.position.x][self.position.y]
+		local x = math.floor(self.position.x + 0.5)
+		local y = math.floor(self.position.y + 0.5)
+		local currentTile = self.level.tiles[x][y]
 		currentTile.floorDosh = currentTile.floorDosh + self.dosh
 	end
 end
 
 function Enemy:update(dt)
+	self:updateMovement(dt)
 end
 
 return Enemy
