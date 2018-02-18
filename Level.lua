@@ -8,6 +8,7 @@ local Tile = require("Tile")
 local Gun = require("Gun")
 local Enemy = require("Enemy")
 local Bullet = require("Bullet")
+local EnemySpawn = require("EnemySpawn")
 
 function Level:initialize()
 	self.tiles = {}
@@ -31,22 +32,32 @@ function Level:initialize()
 
 	self.guns = {}
 
-	self.enemies = {
-		Enemy:new({x = 6, y = 4}, self),
-		Enemy:new({x = 7, y = 4}, self),
-		Enemy:new({x = 8, y = 4}, self),
-		Enemy:new({x = 9, y = 4}, self),
-		Enemy:new({x = 2, y = 2}, self),
-		Enemy:new({x = 2, y = 3}, self),
-		Enemy:new({x = 2, y = 4}, self),
-		Enemy:new({x = 2, y = 5}, self),
-		Enemy:new({x = 2, y = 6}, self),
-		Enemy:new({x = 9, y = 9}, self),
-		Enemy:new({x = 8, y = 9}, self),
-		Enemy:new({x = 7, y = 9}, self)
-	}
+	self.enemies = {}
 
 	self.bullets = {}
+
+	local spawnList = {
+		Enemy:new({x = 1, y = 1}, self),
+		Enemy:new({x = 1, y = 1}, self),
+		Enemy:new({x = 1, y = 1}, self),
+		Enemy:new({x = 1, y = 1}, self),
+		Enemy:new({x = 1, y = 1}, self),
+		Enemy:new({x = 1, y = 1}, self),
+		Enemy:new({x = 1, y = 1}, self),
+		Enemy:new({x = 1, y = 1}, self),
+		Enemy:new({x = 1, y = 1}, self),
+		Enemy:new({x = 1, y = 1}, self),
+		Enemy:new({x = 1, y = 1}, self),
+		Enemy:new({x = 1, y = 1}, self),
+		Enemy:new({x = 1, y = 1}, self),
+		Enemy:new({x = 1, y = 1}, self),
+		Enemy:new({x = 1, y = 1}, self)
+	}
+
+	self.enemySpawns = {
+		EnemySpawn:new({x = 2, y = 2}, self, spawnList, 3),
+		EnemySpawn:new({x = 9, y = 2}, self, spawnList, 3)
+	}
 end
 
 function Level:update(dt)
@@ -60,6 +71,10 @@ function Level:update(dt)
 
 	for _, gun in ipairs(self.guns) do
 		gun:update(dt)
+	end
+
+	for _, enemySpawn in ipairs(self.enemySpawns) do
+		enemySpawn:update(dt)
 	end
 
 	for i, enemy in ipairs(self.enemies) do
@@ -86,6 +101,10 @@ function Level:draw()
 	end
 
 	lg.setColor(255, 255, 255)
+
+	for _, enemySpawn in ipairs(self.enemySpawns) do
+		enemySpawn:draw()
+	end
 
 	for _, bullet in ipairs(self.bullets) do
 		bullet:draw()
