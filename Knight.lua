@@ -70,6 +70,10 @@ function Knight:buildGun()
 	-- Check if a gun already exists at that position and abort if so
 	for _, existingGun in ipairs(self.level.guns) do
 		if existingGun.position.x == gun.position.x and existingGun.position.y == gun.position.y then
+			if existingGun:upgrade() then
+				self.level.dosh = self.level.dosh - gunCost
+			end
+
 			return
 		end
 	end

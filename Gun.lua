@@ -19,7 +19,15 @@ function Gun:initialize(position, level)
 
 	self.readyToFire = false
 
-	self.fireTimer = cron.every(0.3, function() self:fire() end)
+	self.upgradeLevel = 1
+	self.upgradeFireRate = 0.3
+
+	self.fireRate = 0.8
+	self:refreshFireTimer()
+end
+
+function Gun:refreshFireTimer()
+	self.fireTimer = cron.every(self.fireRate, function() self:fire() end)
 end
 
 function Gun:fire()
@@ -83,6 +91,26 @@ function Gun:update(dt)
 	local targetY = (self.target.position.y - 1) * self.level.tilesize
 
 	self.rotation = math.atan2(targetY - y, targetX - x)
+end
+
+function Gun:upgrade()
+	if self.upgradeLevel == 3 then
+		return false
+	end
+
+	self.fireRate = self.fireRate - self.upgradeFireRate
+	self:refreshFireTimer()
+	self.upgradeLevel = self.upgradeLevel + 1
+
+	if self.upgradeLevel == 1 then
+		self.sprite = lg.newImage("graphics/sprites/redgun.png")
+	elseif self.upgradeLevel == 2 then
+		self.sprite = lg.newImage("graphics/sprites/greengun.png")
+	elseif self.upgradeLevel == 3 then
+		self.sprite = lg.newImage("graphics/sprites/bluegun.png")
+	end
+
+	return true
 end
 
 return Gun
