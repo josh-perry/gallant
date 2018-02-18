@@ -53,7 +53,7 @@ function EnemySpawn:spawnEnemy()
 		enemy.speed = 1
 		enemy.sprite = lg.newImage("graphics/sprites/green.png")
 	elseif self.enemies[1] == "blue_blob" then
-		enemy.health = 20
+		enemy.health = 10
 		enemy.dosh = 5
 		enemy.speed = 5
 		enemy.sprite = lg.newImage("graphics/sprites/blue.png")

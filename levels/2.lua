@@ -13,34 +13,14 @@ level.enemySpawns = {}
 
 level.enemySpawns["red"] = {
 	enemies = {
-		"red_blob",
-		"red_blob",
-		"red_blob",
-		"red_blob",
-		"red_blob",
-		"red_blob",
-		"red_blob",
-		"red_blob"
-	},
-	spawnDelay = 2
-}
-
-level.enemySpawns["green"] = {
-	enemies = {
-		"green_blob",
-		"green_blob",
-		"green_blob",
-		"green_blob",
-		"green_blob",
-		"green_blob",
-		"green_blob",
-		"green_blob"
-	},
-	spawnDelay = 3
-}
-
-level.enemySpawns["blue"] = {
-	enemies = {
+		"blue_blob",
+		"blue_blob",
+		"blue_blob",
+		"blue_blob",
+		"blue_blob",
+		"blue_blob",
+		"blue_blob",
+		"blue_blob",
 		"blue_blob",
 		"blue_blob",
 		"blue_blob",
@@ -50,6 +30,16 @@ level.enemySpawns["blue"] = {
 		"blue_blob",
 		"blue_blob"
 	},
+	spawnDelay = 1
+}
+
+level.enemySpawns["green"] = {
+	enemies = {},
+	spawnDelay = 3
+}
+
+level.enemySpawns["blue"] = {
+	enemies = {},
 	spawnDelay = 1
 }
 
