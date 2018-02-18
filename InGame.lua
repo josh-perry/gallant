@@ -44,6 +44,13 @@ function InGame:draw()
   self.knight:draw()
 
   self:drawUi()
+
+  if self.level.tip then
+    lg.setFont(self.uiFont)
+    lg.setColor(255, 255, 255)
+
+    lg.printf(self.level.tip.text, self.level.tip.x, self.level.tip.y, lg:getWidth() - self.level.tip.x, "center")
+  end
 end
 
 function InGame:drawUi()

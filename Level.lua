@@ -17,6 +17,8 @@ function Level:initialize()
 	self.tilesX = 10
 	self.tilesY = 10
 
+	self.tip = nil
+
   	self.princess = Princess:new({x = 1, y = 1}, self)
 
 	self.pathFindingMap = nil
@@ -89,6 +91,10 @@ function Level:loadFromImage(image, data)
 			end
 		end
 	end
+
+	if levelData.tip then
+		self.tip = levelData.tip
+	end
 end
 
 function Level:update(dt)
@@ -150,6 +156,8 @@ function Level:draw()
 	end
 
 	self.princess:draw()
+
+
 end
 
 function Level:getPathFindingMap()

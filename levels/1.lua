@@ -1,5 +1,11 @@
 local level = {}
 
+level.tip = {
+	text = "Face a wall and press space to build a turret!",
+	x = 50,
+	y = 10,
+}
+
 level.enemySpawns = {}
 
 level.enemySpawns["red"] = {
