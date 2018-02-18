@@ -21,6 +21,7 @@ function Game:keyreleased(key)
 	if key == "space" then
 		self:gotoState("InGame")
 		self:initLevel()
+		self:initUi()
 	end
 end
 
