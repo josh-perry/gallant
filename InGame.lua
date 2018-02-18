@@ -94,11 +94,15 @@ end
 
 function InGame:buildGun()
   local gunCost = 50
-  local upgradeCost = 50
+  local upgradeBaseCost = 100
 
   if self.level.knight.facingWall then
-    if self.level.knight.facingTurret then
-      if self.level.dosh >= upgradeCost and self.level.knight.facingTurret:upgrade() then
+    local turret = self.level.knight.facingTurret
+
+    if turret then
+      local upgradeCost = upgradeBaseCost*turret.upgradeLevel
+
+      if self.level.dosh >= upgradeCost and turret:upgrade() then
         self.level.dosh = self.level.dosh - upgradeCost
       end
     else
