@@ -10,7 +10,7 @@ local MovableEntity = require("MovableEntity")
 local Knight = class("Knight", MovableEntity)
 
 function Knight:initialize(position, level)
-	self.sprite = lg.newImage("graphics/sprites/knight.png")
+	self.sprite = lg.newImage("graphics/sprites/knight2.png")
 
 	MovableEntity.initialize(self, position, level)
 end
@@ -76,6 +76,16 @@ function Knight:buildGun()
 
 	table.insert(self.level.guns, gun)
 	self.level.dosh = self.level.dosh - gunCost
+end
+
+function Knight:draw()
+	local x = (self.position.x - 1) * self.level.tilesize
+	local y = (self.position.y - 1) * self.level.tilesize
+
+	local yOffset = -62 - 16
+
+	lg.setColor(255, 255, 255)
+	lg.draw(self.sprite, x, y + yOffset)
 end
 
 return Knight
