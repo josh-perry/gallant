@@ -17,7 +17,7 @@ function Enemy:initialize(position, level)
 
 	MovableEntity.initialize(self, position, level)
 
-	self.speed = 30
+	self.speed = 5
 end
 
 function Enemy:getMoveIntention()

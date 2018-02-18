@@ -25,45 +25,12 @@ function Level:initialize()
 
 	for x = 1, self.tilesX do
 		self.tiles[x] = {}
-
-		for y = 1, self.tilesY do
-			self.tiles[x][y] = nil
-			-- self.tiles[x][y] = Tile:new(true, wall)
-
-			-- if x == 1 or y == 1 or x == self.tilesX or y == self.tilesY then
-			-- 	self.tiles[x][y] = Tile:new(true, "graphics/tiles/wall.png")
-			-- end
-		end
 	end
 
 	self.guns = {}
-
 	self.enemies = {}
-
 	self.bullets = {}
-
-	-- local spawnList = {
-	-- 	Enemy:new({x = 1, y = 1}, self),
-	-- 	Enemy:new({x = 1, y = 1}, self),
-	-- 	Enemy:new({x = 1, y = 1}, self),
-	-- 	Enemy:new({x = 1, y = 1}, self),
-	-- 	Enemy:new({x = 1, y = 1}, self),
-	-- 	Enemy:new({x = 1, y = 1}, self),
-	-- 	Enemy:new({x = 1, y = 1}, self),
-	-- 	Enemy:new({x = 1, y = 1}, self),
-	-- 	Enemy:new({x = 1, y = 1}, self),
-	-- 	Enemy:new({x = 1, y = 1}, self),
-	-- 	Enemy:new({x = 1, y = 1}, self),
-	-- 	Enemy:new({x = 1, y = 1}, self),
-	-- 	Enemy:new({x = 1, y = 1}, self),
-	-- 	Enemy:new({x = 1, y = 1}, self),
-	-- 	Enemy:new({x = 1, y = 1}, self)
-	-- }
-
-	self.enemySpawns = {
-		-- EnemySpawn:new({x = 1, y = 9}, self, spawnList, 6),
-		-- EnemySpawn:new({x = 9, y = 9}, self, spawnList, 3)
-	}
+	self.enemySpawns = {}
 
 	self:loadFromImage("levels/1.png", "levels/1")
 end
