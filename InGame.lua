@@ -18,8 +18,6 @@ end
 
 function InGame:initLevel()
   self.level = Level:new()
-
-  self.knight = Knight:new({x = 3, y = 4}, self.level)
 end
 
 function InGame:initUi()
@@ -30,7 +28,7 @@ end
 
 function InGame:update(dt)
   self.level:update(dt)
-  self.knight:update(dt)
+  self.level.knight:update(dt)
 
   if self.level.princess.destroyed then
     -- I'M SORRY
@@ -41,12 +39,12 @@ end
 function InGame:draw()
   self.level:draw()
 
-  self.knight:draw()
+  self.level.knight:draw()
 
-  if self.knight:lookingAtWall() then
+  if self.level.knight:lookingAtWall() then
     lg.setColor(255, 255, 0, 100)
 
-    local lookingAtPosition = self.knight:getCenterOfLookingAt()
+    local lookingAtPosition = self.level.knight:getCenterOfLookingAt()
     lg.circle("fill", lookingAtPosition.x, lookingAtPosition.y, 200)
 
     lg.setColor(255, 255, 255)
@@ -90,13 +88,13 @@ function InGame:buildGun()
   local gunCost = 50
   local upgradeCost = 50
 
-  if self.knight.facingWall then
-    if self.knight.facingTurret then
-      if self.level.dosh >= upgradeCost and self.knight.facingTurret:upgrade() then
+  if self.level.knight.facingWall then
+    if self.level.knight.facingTurret then
+      if self.level.dosh >= upgradeCost and self.level.knight.facingTurret:upgrade() then
         self.level.dosh = self.level.dosh - upgradeCost
       end
     else
-      self.knight:buildGun(gunCost)
+      self.level.knight:buildGun(gunCost)
     end
   end
 end

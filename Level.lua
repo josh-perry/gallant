@@ -10,6 +10,7 @@ local Enemy = require("Enemy")
 local Bullet = require("Bullet")
 local EnemySpawn = require("EnemySpawn")
 local Princess = require("Princess")
+local Knight = require("Knight")
 
 function Level:initialize()
 	self.tiles = {}
@@ -20,6 +21,7 @@ function Level:initialize()
 	self.tip = nil
 
   	self.princess = Princess:new({x = 1, y = 1}, self)
+  	self.knight = Knight:new({x = 1, y = 1}, self)
 
 	self.pathFindingMap = nil
 
@@ -88,6 +90,11 @@ function Level:loadFromImage(image, data)
 				local spawnEnemies = levelData.enemySpawns["blue"].enemies
 				local spawnDelay = levelData.enemySpawns["blue"].spawnDelay
 				self.enemySpawns["blue"] = EnemySpawn:new({x = x, y = y}, self, spawnEnemies, spawnDelay)
+			end
+
+			if r == 255 and g == 0 and b == 255 then
+				self.knight.position.x = x
+				self.knight.position.y = y
 			end
 		end
 	end
