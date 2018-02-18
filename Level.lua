@@ -103,9 +103,9 @@ function Level:loadFromImage(path)
 		end
 	end
 
-	if levelData.tip then
-		self.tip = levelData.tip
-	end
+
+	self.tip = levelData.tip or nil
+	self.dosh = levelData.dosh or 100
 end
 
 function Level:update(dt)
