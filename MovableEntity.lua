@@ -92,6 +92,9 @@ function MovableEntity:move(direction)
 	self.velocity = { x = 0, y = 0 }
 	self.moving = true
 
+	self.destination.x = math.floor(self.destination.x + 0.5)
+	self.destination.y = math.floor(self.destination.y + 0.5)
+
 	if direction == "up" then
 		self.destination.y = self.position.y - 1
 		self.velocity.y = -1
@@ -142,14 +145,17 @@ function MovableEntity:snapPosition(x, y)
 end
 
 function MovableEntity:lookingAtWall()
+	local x = math.floor(self.position.x + 0.5)
+	local y = math.floor(self.position.y + 0.5)
+
 	if self.facing == "left" then
-		return self.level.tiles[self.position.x - 1][self.position.y].solid
+		return self.level.tiles[x - 1][y].solid
 	elseif self.facing == "right" then
-		return self.level.tiles[self.position.x + 1][self.position.y].solid
+		return self.level.tiles[x + 1][y].solid
 	elseif self.facing == "up" then
-		return self.level.tiles[self.position.x][self.position.y - 1].solid
+		return self.level.tiles[x][y - 1].solid
 	elseif self.facing == "down" then
-		return self.level.tiles[self.position.x][self.position.y + 1].solid
+		return self.level.tiles[x][y + 1].solid
 	end
 end
 
