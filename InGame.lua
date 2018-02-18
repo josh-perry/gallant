@@ -6,7 +6,6 @@ local lg = love.graphics
 
 local Level = require("Level")
 local Princess = require("Princess")
-local Knight = require("Knight")
 local Bullet = require("Bullet")
 
 local Game = require("Game")
@@ -41,11 +40,15 @@ function InGame:draw()
 
   self.level.knight:draw()
 
-  if self.level.knight:lookingAtWall() then
-    lg.setColor(255, 255, 0, 100)
+  if self.level.knight.facingTurret then
+    local turret = self.level.knight.facingTurret
 
     local lookingAtPosition = self.level.knight:getCenterOfLookingAt()
-    lg.circle("fill", lookingAtPosition.x, lookingAtPosition.y, 200)
+    lg.setColor(255, 255, 0, 100)
+    lg.circle("fill", lookingAtPosition.x, lookingAtPosition.y, turret.range)
+
+    lg.setColor(200, 200, 0, 150)
+    lg.circle("line", lookingAtPosition.x, lookingAtPosition.y, turret:getRangeUpgrade())
 
     lg.setColor(255, 255, 255)
   end

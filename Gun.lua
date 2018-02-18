@@ -22,7 +22,8 @@ function Gun:initialize(position, level)
 	self.upgradeLevel = 1
 	self.upgradeFireRate = 0.3
 
-	self.range = 200
+	self.baseRange = 200
+	self.range = self.baseRange
 
 	self.fireRate = 0.8
 	self:refreshFireTimer()
@@ -98,13 +99,26 @@ function Gun:update(dt)
 	self.rotation = math.atan2(targetY - y, targetX - x)
 end
 
+function Gun:getRangeUpgrade()
+	if self.upgradeLevel == 3 then
+		return self.range
+	end
+
+	return self.baseRange + (30 * (self.upgradeLevel + 1))
+end
+
 function Gun:upgrade()
 	if self.upgradeLevel == 3 then
 		return false
 	end
 
+	-- Upgrade range
+	self.range = self:getRangeUpgrade()
+
+	-- Upgrade fire rate
 	self.fireRate = self.fireRate - self.upgradeFireRate
 	self:refreshFireTimer()
+
 	self.upgradeLevel = self.upgradeLevel + 1
 
 	if self.upgradeLevel == 1 then
