@@ -38,14 +38,6 @@ level.enemySpawns["green"] = {
 	enemies = {
 		"green_blob",
 		"green_blob",
-		"green_blob",
-		"green_blob",
-		"green_blob",
-		"green_blob",
-		"green_blob",
-		"green_blob",
-		"green_blob",
-		"green_blob",
 		"blue_blob",
 		"blue_blob",
 		"blue_blob",
@@ -53,7 +45,7 @@ level.enemySpawns["green"] = {
 		"blue_blob",
 		"blue_blob"
 	},
-	spawnDelay = 8
+	spawnDelay = 4
 }
 
 level.enemySpawns["blue"] = {
