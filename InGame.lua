@@ -52,7 +52,17 @@ function InGame:drawUi()
 
   lg.setColor(0, 0, 0)
   lg.print(self.level.dosh, uiX + 220, uiY + 40)
-  lg.print(table.getn(self.level.enemies), uiX + 85, uiY + 40)
+  lg.print(self:getEnemyCount(), uiX + 85, uiY + 40)
+end
+
+function InGame:getEnemyCount()
+  local enemies = table.getn(self.level.enemies)
+
+  for _, enemySpawn in pairs(self.level.enemySpawns) do
+    enemies = enemies + table.getn(enemySpawn.enemies)
+  end
+
+  return enemies
 end
 
 function InGame:buildGun()
