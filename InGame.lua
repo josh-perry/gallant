@@ -87,8 +87,17 @@ function InGame:getEnemyCount()
 end
 
 function InGame:buildGun()
-  if self.knight:lookingAtWall() then
-    self.knight:buildGun()
+  local gunCost = 50
+  local upgradeCost = 50
+
+  if self.knight.facingWall then
+    if self.knight.facingTurret then
+      if self.level.dosh >= upgradeCost and self.knight.facingTurret:upgrade() then
+        self.level.dosh = self.level.dosh - upgradeCost
+      end
+    else
+      self.knight:buildGun(gunCost)
+    end
   end
 end
 

@@ -12,12 +12,43 @@ local Knight = class("Knight", MovableEntity)
 function Knight:initialize(position, level)
 	self.sprite = lg.newImage("graphics/sprites/knight2.png")
 
+	self.facingWall = false
+	self.facingTurret = nil
+
 	MovableEntity.initialize(self, position, level)
 end
 
 function Knight:update(dt)
+	self.facingWall = self:lookingAtWall()
+	self.facingTurret = self:getFacingTurret()
+
 	self:updateMovement(dt)
 	self:collectFloorDosh()
+end
+
+function Knight:getFacingTurret()
+	local position = nil
+
+	if self.facing == "left" then
+		position = {x = self.position.x - 1, y = self.position.y}
+	elseif self.facing == "right" then
+		position = {x = self.position.x + 1, y = self.position.y}
+	elseif self.facing == "up" then
+		position = {x = self.position.x, y = self.position.y - 1}
+	elseif self.facing == "down" then
+		position = {x = self.position.x, y = self.position.y + 1}
+	else
+		return nil
+	end
+
+	-- Check if a gun already exists at that position and abort if so
+	for _, existingGun in ipairs(self.level.guns) do
+		if existingGun.position.x == position.x and existingGun.position.y == position.y then
+			return existingGun
+		end
+	end
+
+	return nil
 end
 
 function Knight:getMoveIntention()
@@ -46,9 +77,7 @@ function Knight:collectFloorDosh()
 	currentTile.floorDosh = 0
 end
 
-function Knight:buildGun()
-	local gunCost = 50
-
+function Knight:buildGun(gunCost)
 	if self.level.dosh < gunCost then
 		return
 	end
@@ -65,17 +94,6 @@ function Knight:buildGun()
 		gun = Gun:new({x = self.position.x , y = self.position.y + 1}, self.level)
 	else
 		return
-	end
-
-	-- Check if a gun already exists at that position and abort if so
-	for _, existingGun in ipairs(self.level.guns) do
-		if existingGun.position.x == gun.position.x and existingGun.position.y == gun.position.y then
-			if existingGun:upgrade() then
-				self.level.dosh = self.level.dosh - gunCost
-			end
-
-			return
-		end
 	end
 
 	table.insert(self.level.guns, gun)
