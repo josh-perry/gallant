@@ -5,14 +5,18 @@ local lg = love.graphics
 
 local Princess = class("Princess")
 
-function Princess:initialize(x, y)
-	self.x = x
-	self.y = y
+function Princess:initialize(position, level)
+	self.position = position
 	self.sprite = lg.newImage("graphics/sprites/princess.png")
+	self.level = level
 end
 
 function Princess:draw()
-	lg.draw(self.sprite, self.x, self.y)
+	local x = (self.position.x - 1) * self.level.tilesize
+	local y = (self.position.y - 1) * self.level.tilesize
+
+	lg.setColor(255, 255, 255)
+	lg.draw(self.sprite, x, y)
 end
 
 return Princess

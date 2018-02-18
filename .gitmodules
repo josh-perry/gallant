@@ -4,3 +4,6 @@
 [submodule "libs/cron"]
 	path = libs/cron
 	url = https://github.com/kikito/cron.lua.git
+[submodule "libs/jumper"]
+	path = libs/jumper
+	url = https://github.com/Yonaba/Jumper.git

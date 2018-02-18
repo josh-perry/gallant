@@ -9,7 +9,6 @@ function MovableEntity:initialize(position, level)
 	self.position = position
 	self.size = { w = 0, h = 0 }
 	self.velocity = { x = 0, y = 0 }
-	self.speed = 0
 	self.moveIntention = nil
 	self.lastMove = nil
 	self.destination = nil
@@ -22,7 +21,7 @@ function MovableEntity:initialize(position, level)
 end
 
 function MovableEntity:getMoveIntention()
-	return "down"
+	return nil
 end
 
 function MovableEntity:updateMovement(dt)

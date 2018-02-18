@@ -16,6 +16,10 @@ function Level:initialize()
 	self.tilesX = 10
 	self.tilesY = 10
 
+	self.princess = nil
+
+	self.pathFindingMap = nil
+
 	self.dosh = 100
 
 	for x = 1, self.tilesX do
@@ -55,8 +59,8 @@ function Level:initialize()
 	}
 
 	self.enemySpawns = {
-		EnemySpawn:new({x = 2, y = 2}, self, spawnList, 3),
-		EnemySpawn:new({x = 9, y = 2}, self, spawnList, 3)
+		EnemySpawn:new({x = 1, y = 9}, self, spawnList, 6),
+		EnemySpawn:new({x = 9, y = 9}, self, spawnList, 3)
 	}
 end
 
@@ -117,6 +121,29 @@ function Level:draw()
 	for _, enemy in ipairs(self.enemies) do
 		enemy:draw()
 	end
+end
+
+function Level:getPathFindingMap()
+	if self.pathFindingMap ~= nil then
+		return self.pathFindingMap
+	end
+
+	local map = {}
+
+	for x = 1, self.tilesX do
+		map[x] = {}
+
+		for y = 1, self.tilesY do
+			if self.tiles[x][y].solid then
+				map[x][y] = 1
+			else
+				map[x][y] = 0
+			end
+		end
+	end
+
+	self.pathFindingMap = map
+	return self.pathFindingMap
 end
 
 return Level

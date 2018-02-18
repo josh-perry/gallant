@@ -14,8 +14,10 @@ local Game = class("Game")
 function Game:initialize()
   self.level = Level:new()
 
-  self.princess = Princess:new(5*self.level.tilesize, 5*self.level.tilesize)
+  self.princess = Princess:new({x = 5, y = 5}, self.level)
   self.knight = Knight:new({x = 3, y = 4}, self.level)
+
+  self.level.princess = self.princess
 end
 
 function Game:update(dt)
