@@ -1,5 +1,6 @@
 -- Libraries
 local class = require("libs/middleclass/middleclass")
+local cron = require("libs/cron/cron")
 
 local lg = love.graphics
 
@@ -19,6 +20,9 @@ function Level:initialize(path)
 	self.tilesY = 10
 
 	self.tip = nil
+
+	self.roundStarted = nil
+	self.roundStartTimer = cron.after(5, function() self.roundStarted = true end)
 
   	self.princess = Princess:new({x = 1, y = 1}, self)
   	self.knight = Knight:new({x = 1, y = 1}, self)
@@ -105,6 +109,11 @@ function Level:loadFromImage(path)
 end
 
 function Level:update(dt)
+	if not self.roundStarted then
+		self.roundStartTimer:update(dt)
+		return
+	end
+
 	for i, bullet in ipairs(self.bullets) do
 		bullet:update(dt)
 
