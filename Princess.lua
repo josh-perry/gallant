@@ -9,9 +9,12 @@ function Princess:initialize(position, level)
 	self.position = position
 	self.sprite = lg.newImage("graphics/sprites/princess.png")
 	self.level = level
+	self.destroyed = false
 end
 
 function Princess:draw()
+	if self.destroyed then return end
+
 	local x = (self.position.x - 1) * self.level.tilesize
 	local y = (self.position.y - 1) * self.level.tilesize
 

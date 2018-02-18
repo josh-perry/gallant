@@ -31,6 +31,11 @@ end
 function InGame:update(dt)
   self.level:update(dt)
   self.knight:update(dt)
+
+  if self.level.princess.destroyed then
+    -- I'M SORRY
+    love.event.quit("restart")
+  end
 end
 
 function InGame:draw()

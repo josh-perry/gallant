@@ -17,12 +17,13 @@ function Enemy:initialize(position, level)
 
 	MovableEntity.initialize(self, position, level)
 
-	self.speed = 1
+	self.speed = 30
 end
 
 function Enemy:getMoveIntention()
 	if not self.level.princess then
 		print("No princess found on level!")
+		return
 	end
 
 	local pathFindingMap = self.level:getPathFindingMap()
@@ -87,8 +88,26 @@ function Enemy:damage(damage)
 	end
 end
 
+function Enemy:isPrincessHit()
+	local princess = self.level.princess
+
+	if self.position.x == princess.position.x and self.position.y == princess.position.y then
+		return true
+	end
+
+	return false
+end
+
 function Enemy:update(dt)
+	if self.destroyed then return end
+	if self.level.princess.destroyed then return end
+
 	self:updateMovement(dt)
+
+	if self:isPrincessHit() then
+		self.destroyed = true
+		self.level.princess.destroyed = true
+	end
 end
 
 return Enemy
