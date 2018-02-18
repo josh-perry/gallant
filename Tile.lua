@@ -5,9 +5,9 @@ local lg = love.graphics
 
 local Tile = class("Tile")
 
-function Tile:initialize(solid, spritepath)
+function Tile:initialize(solid, sprite)
 	self.solid = solid
-	self.sprite = lg.newImage(spritepath)
+	self.sprite = sprite
 	self.doshSprite = lg.newImage("graphics/sprites/knightdosh.png")
 	self.floorDosh = 0
 end

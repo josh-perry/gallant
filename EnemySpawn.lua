@@ -2,6 +2,8 @@
 local class = require("libs/middleclass/middleclass")
 local cron = require("libs/cron/cron")
 
+local Enemy = require("Enemy")
+
 local lg = love.graphics
 
 local EnemySpawn = class("EnemySpawn")
@@ -38,9 +40,7 @@ function EnemySpawn:spawnEnemy()
 		return
 	end
 
-	local enemy = self.enemies[1]
-	enemy.position.x = self.position.x
-	enemy.position.y = self.position.y
+	local enemy = Enemy:new({x = self.position.x, y = self.position.y}, self.level)
 
 	-- Spawn new enemy on level
 	table.insert(self.level.enemies, enemy)

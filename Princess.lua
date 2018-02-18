@@ -15,10 +15,8 @@ function Princess:draw()
 	local x = (self.position.x - 1) * self.level.tilesize
 	local y = (self.position.y - 1) * self.level.tilesize
 
-	local yOffset = -62
-
 	lg.setColor(255, 255, 255)
-	lg.draw(self.sprite, x, y + yOffset)
+	lg.draw(self.sprite, x, y)
 end
 
 return Princess

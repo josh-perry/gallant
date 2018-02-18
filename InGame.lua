@@ -19,10 +19,7 @@ end
 function InGame:initLevel()
   self.level = Level:new()
 
-  self.princess = Princess:new({x = 5, y = 5}, self.level)
   self.knight = Knight:new({x = 3, y = 4}, self.level)
-
-  self.level.princess = self.princess
 end
 
 function InGame:update(dt)
@@ -33,7 +30,6 @@ end
 function InGame:draw()
   self.level:draw()
 
-  self.princess:draw()
   self.knight:draw()
 
   lg.print("KNIGHTCOINS: "..self.level.dosh)

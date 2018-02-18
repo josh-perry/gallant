@@ -9,6 +9,7 @@ local Gun = require("Gun")
 local Enemy = require("Enemy")
 local Bullet = require("Bullet")
 local EnemySpawn = require("EnemySpawn")
+local Princess = require("Princess")
 
 function Level:initialize()
 	self.tiles = {}
@@ -16,7 +17,7 @@ function Level:initialize()
 	self.tilesX = 10
 	self.tilesY = 10
 
-	self.princess = nil
+  	self.princess = Princess:new({x = 1, y = 1}, self)
 
 	self.pathFindingMap = nil
 
@@ -26,11 +27,12 @@ function Level:initialize()
 		self.tiles[x] = {}
 
 		for y = 1, self.tilesY do
-			self.tiles[x][y] = Tile:new(false, "graphics/tiles/floor.png")
+			self.tiles[x][y] = nil
+			-- self.tiles[x][y] = Tile:new(true, wall)
 
-			if x == 1 or y == 1 or x == self.tilesX or y == self.tilesY then
-				self.tiles[x][y] = Tile:new(true, "graphics/tiles/wall.png")
-			end
+			-- if x == 1 or y == 1 or x == self.tilesX or y == self.tilesY then
+			-- 	self.tiles[x][y] = Tile:new(true, "graphics/tiles/wall.png")
+			-- end
 		end
 	end
 
@@ -40,28 +42,86 @@ function Level:initialize()
 
 	self.bullets = {}
 
-	local spawnList = {
-		Enemy:new({x = 1, y = 1}, self),
-		Enemy:new({x = 1, y = 1}, self),
-		Enemy:new({x = 1, y = 1}, self),
-		Enemy:new({x = 1, y = 1}, self),
-		Enemy:new({x = 1, y = 1}, self),
-		Enemy:new({x = 1, y = 1}, self),
-		Enemy:new({x = 1, y = 1}, self),
-		Enemy:new({x = 1, y = 1}, self),
-		Enemy:new({x = 1, y = 1}, self),
-		Enemy:new({x = 1, y = 1}, self),
-		Enemy:new({x = 1, y = 1}, self),
-		Enemy:new({x = 1, y = 1}, self),
-		Enemy:new({x = 1, y = 1}, self),
-		Enemy:new({x = 1, y = 1}, self),
-		Enemy:new({x = 1, y = 1}, self)
-	}
+	-- local spawnList = {
+	-- 	Enemy:new({x = 1, y = 1}, self),
+	-- 	Enemy:new({x = 1, y = 1}, self),
+	-- 	Enemy:new({x = 1, y = 1}, self),
+	-- 	Enemy:new({x = 1, y = 1}, self),
+	-- 	Enemy:new({x = 1, y = 1}, self),
+	-- 	Enemy:new({x = 1, y = 1}, self),
+	-- 	Enemy:new({x = 1, y = 1}, self),
+	-- 	Enemy:new({x = 1, y = 1}, self),
+	-- 	Enemy:new({x = 1, y = 1}, self),
+	-- 	Enemy:new({x = 1, y = 1}, self),
+	-- 	Enemy:new({x = 1, y = 1}, self),
+	-- 	Enemy:new({x = 1, y = 1}, self),
+	-- 	Enemy:new({x = 1, y = 1}, self),
+	-- 	Enemy:new({x = 1, y = 1}, self),
+	-- 	Enemy:new({x = 1, y = 1}, self)
+	-- }
 
 	self.enemySpawns = {
-		EnemySpawn:new({x = 1, y = 9}, self, spawnList, 6),
-		EnemySpawn:new({x = 9, y = 9}, self, spawnList, 3)
+		-- EnemySpawn:new({x = 1, y = 9}, self, spawnList, 6),
+		-- EnemySpawn:new({x = 9, y = 9}, self, spawnList, 3)
 	}
+
+	self:loadFromImage("levels/1.png", "levels/1")
+end
+
+function Level:loadFromImage(image, data)
+	local image = love.image.newImageData(image)
+
+	local levelData = require(data)
+
+	local floor = lg.newImage("graphics/tiles/floor.png")
+	local wall = lg.newImage("graphics/tiles/wall.png")
+
+	self.tilesX = image:getWidth()
+	self.tilesY = image:getHeight()
+
+	for x = 1, self.tilesX do
+		self.tiles[x] = {}
+
+		for y = 1, self.tilesY do
+			self.tiles[x][y] = nil
+		end
+	end
+
+	for x = 1, image:getWidth() do
+		for y = 1, image:getHeight() do
+			local r, g, b, a = image:getPixel(x - 1, y - 1)
+
+			-- Black = wall
+			if r == 0 and g == 0 and b == 0 then
+				self.tiles[x][y] = Tile:new(true, wall)
+			else
+				self.tiles[x][y] = Tile:new(false, floor)
+			end
+
+			-- Yellow = princess
+			if r == 255 and g == 255 and b == 0 then
+				self.princess.position = {x = x, y = y}
+			end
+
+			if r == 255 and g == 0 and b == 0 then
+				local spawnEnemies = levelData.enemySpawns["red"].enemies
+				local spawnDelay = levelData.enemySpawns["red"].spawnDelay
+				self.enemySpawns["red"] = EnemySpawn:new({x = x, y = y}, self, spawnEnemies, spawnDelay)
+			end
+
+			if r == 0 and g == 255 and b == 0 then
+				local spawnEnemies = levelData.enemySpawns["green"].enemies
+				local spawnDelay = levelData.enemySpawns["green"].spawnDelay
+				self.enemySpawns["green"] = EnemySpawn:new({x = x, y = y}, self, spawnEnemies, spawnDelay)
+			end
+
+			if r == 0 and g == 0 and b == 255 then
+				local spawnEnemies = levelData.enemySpawns["blue"].enemies
+				local spawnDelay = levelData.enemySpawns["blue"].spawnDelay
+				self.enemySpawns["blue"] = EnemySpawn:new({x = x, y = y}, self, spawnEnemies, spawnDelay)
+			end
+		end
+	end
 end
 
 function Level:update(dt)
@@ -77,7 +137,7 @@ function Level:update(dt)
 		gun:update(dt)
 	end
 
-	for _, enemySpawn in ipairs(self.enemySpawns) do
+	for _, enemySpawn in pairs(self.enemySpawns) do
 		enemySpawn:update(dt)
 	end
 
@@ -106,7 +166,7 @@ function Level:draw()
 
 	lg.setColor(255, 255, 255)
 
-	for _, enemySpawn in ipairs(self.enemySpawns) do
+	for _, enemySpawn in pairs(self.enemySpawns) do
 		enemySpawn:draw()
 	end
 
@@ -121,6 +181,8 @@ function Level:draw()
 	for _, enemy in ipairs(self.enemies) do
 		enemy:draw()
 	end
+
+	self.princess:draw()
 end
 
 function Level:getPathFindingMap()
@@ -130,14 +192,14 @@ function Level:getPathFindingMap()
 
 	local map = {}
 
-	for x = 1, self.tilesX do
-		map[x] = {}
+	for y = 1, self.tilesY do
+		map[y] = {}
 
-		for y = 1, self.tilesY do
+		for x = 1, self.tilesX do
 			if self.tiles[x][y].solid then
-				map[x][y] = 1
+				map[y][x] = 1
 			else
-				map[x][y] = 0
+				map[y][x] = 0
 			end
 		end
 	end

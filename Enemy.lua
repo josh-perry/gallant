@@ -18,6 +18,12 @@ function Enemy:initialize(position, level)
 	MovableEntity.initialize(self, position, level)
 
 	self.speed = 1
+end
+
+function Enemy:getMoveIntention()
+	if not self.level.princess then
+		print("No princess found on level!")
+	end
 
 	local pathFindingMap = self.level:getPathFindingMap()
 	local grid = Grid(pathFindingMap)
@@ -26,12 +32,6 @@ function Enemy:initialize(position, level)
 
 	self.path = nil
 	self.pathStep = nil
-end
-
-function Enemy:getMoveIntention()
-	if not self.level.princess then
-		print("No princess found on level!")
-	end
 
 	local startX = math.floor(self.position.x + 0.5)
 	local startY = math.floor(self.position.y + 0.5)
