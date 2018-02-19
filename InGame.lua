@@ -1,5 +1,6 @@
 -- Libraries
 local class = require("libs/middleclass/middleclass")
+local cron = require("libs/cron/cron")
 
 -- Shorthands
 local lg = love.graphics
@@ -13,6 +14,8 @@ local InGame = Game:addState("InGame")
 
 function InGame:initialize()
   self:initLevel()
+
+  self.endRoundTimer = nil
 end
 
 function InGame:initLevel(path)
@@ -32,6 +35,14 @@ function InGame:initUi()
 end
 
 function InGame:update(dt)
+  if self:getEnemyCount() == 0 then
+    if self.endRoundTimer == nil then
+      self.endRoundTimer = cron.after(5, function() love.event.quit("restart") end)
+    else
+      self.endRoundTimer:update(dt)
+    end
+  end
+
   self.level:update(dt)
   self.level.knight:update(dt)
 
@@ -126,6 +137,15 @@ function InGame:draw()
     lg.setColor(255, 255, 255)
 
     lg.printf(self.level.tip.text, self.level.tip.x, self.level.tip.y, lg:getWidth() - self.level.tip.x, "center")
+  end
+
+  if self:getEnemyCount() == 0 then
+    lg.setColor(0, 0, 0, 200)
+    lg.rectangle("fill", 0, 0, lg:getWidth(), lg:getHeight())
+
+    lg.setColor(255, 255, 255)
+    lg.setFont(self.uiFont)
+    lg.printf("Level clear!", 0, lg:getHeight() / 2, lg:getWidth(), "center")
   end
 end
 
