@@ -3,7 +3,7 @@ local level = {}
 level.data = "levels/2"
 level.image = "levels/2.png"
 
-level.dosh = 250
+level.dosh = 200
 
 level.tip = {
 	text = "Upgrading turrets is important!",
@@ -42,29 +42,9 @@ level.enemySpawns["red"] = {
 		"blue_blob",
 		"blue_blob",
 		"blue_blob",
-		"blue_blob",
-		"blue_blob",
-		"blue_blob",
-		"blue_blob",
-		"blue_blob",
-		"blue_blob",
-		"blue_blob",
-		"blue_blob",
-		"blue_blob",
-		"blue_blob",
-		"blue_blob",
-		"blue_blob",
-		"blue_blob",
-		"blue_blob",
-		"blue_blob",
-		"blue_blob",
-		"blue_blob",
-		"blue_blob",
-		"blue_blob",
-		"blue_blob",
 		"blue_blob"
 	},
-	spawnDelay = 0.5
+	spawnDelay = 1.5
 }
 
 level.enemySpawns["green"] = {
@@ -80,7 +60,7 @@ level.enemySpawns["green"] = {
 		"green_blob",
 		"green_blob"
 	},
-	spawnDelay = 3
+	spawnDelay = 3.5
 }
 
 level.enemySpawns["blue"] = {
@@ -102,7 +82,7 @@ level.enemySpawns["blue"] = {
 		"red_blob",
 		"red_blob"
 	},
-	spawnDelay = 2
+	spawnDelay = 2.5
 }
 
 return level

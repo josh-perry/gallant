@@ -30,7 +30,7 @@ function InGame:initUi()
 
   self.thoughtBubble = lg.newImage("graphics/ui/thought.png")
   self.baseGun = lg.newImage("graphics/sprites/redgun.png")
-  self.knightDosh = lg.newImage("graphics/sprites/knightDosh.png")
+  self.knightDosh = lg.newImage("graphics/sprites/knightdosh.png")
   self.upgradeArrow = lg.newImage("graphics/ui/upgrade.png")
 end
 

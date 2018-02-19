@@ -34,7 +34,6 @@ function Game:getLevelData()
 		if string.sub(file, -4) == ".lua" then
 			local levelData = require("levels/"..file:sub(1, -5))
 			table.insert(files, levelData)
-			print(file)
 		end
 	end
 

@@ -43,17 +43,17 @@ function EnemySpawn:spawnEnemy()
 	local enemy = Enemy:new({x = self.position.x, y = self.position.y}, self.level)
 
 	if self.enemies[1] == "red_blob" then
-		enemy.health = 25
-		enemy.dosh = 10
+		enemy.health = 30
+		enemy.dosh = 5
 		enemy.speed = 3
 		enemy.sprite = lg.newImage("graphics/sprites/enemy.png")
 	elseif self.enemies[1] == "green_blob" then
-		enemy.health = 50
-		enemy.dosh = 15
+		enemy.health = 100
+		enemy.dosh = 5
 		enemy.speed = 1
 		enemy.sprite = lg.newImage("graphics/sprites/green.png")
 	elseif self.enemies[1] == "blue_blob" then
-		enemy.health = 10
+		enemy.health = 15
 		enemy.dosh = 5
 		enemy.speed = 5
 		enemy.sprite = lg.newImage("graphics/sprites/blue.png")
