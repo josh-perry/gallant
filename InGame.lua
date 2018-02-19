@@ -38,8 +38,6 @@ end
 function InGame:draw()
   self.level:draw()
 
-  self.level.knight:draw()
-
   if self.level.knight.facingTurret then
     local turret = self.level.knight.facingTurret
 

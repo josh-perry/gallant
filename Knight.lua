@@ -10,7 +10,7 @@ local MovableEntity = require("MovableEntity")
 local Knight = class("Knight", MovableEntity)
 
 function Knight:initialize(position, level)
-	self.sprite = lg.newImage("graphics/sprites/knight2.png")
+	self.sprite = lg.newImage("graphics/sprites/knight.png")
 
 	self.facingWall = false
 	self.facingTurret = nil
@@ -104,7 +104,7 @@ function Knight:draw()
 	local x = (self.position.x - 1) * self.level.tilesize
 	local y = (self.position.y - 1) * self.level.tilesize
 
-	local yOffset = -62 - 16
+	local yOffset = -48
 
 	lg.setColor(255, 255, 255)
 	lg.draw(self.sprite, x, y + yOffset)

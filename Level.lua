@@ -171,6 +171,7 @@ function Level:draw()
 		enemy:draw()
 	end
 
+  	self.knight:draw()
 	self.princess:draw()
 
 
