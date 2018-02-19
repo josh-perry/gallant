@@ -23,6 +23,12 @@ function InGame:initUi()
   self.ui = lg.newImage("graphics/ui/ui.png")
 
   self.uiFont = lg.newFont("fonts/vinque.ttf", 24)
+  self.smallUiFont = lg.newFont("fonts/vinque.ttf", 18)
+
+  self.thoughtBubble = lg.newImage("graphics/ui/thought.png")
+  self.baseGun = lg.newImage("graphics/sprites/redgun.png")
+  self.knightDosh = lg.newImage("graphics/sprites/knightDosh.png")
+  self.upgradeArrow = lg.newImage("graphics/ui/upgrade.png")
 end
 
 function InGame:update(dt)
@@ -35,23 +41,80 @@ function InGame:update(dt)
   end
 end
 
+function InGame:showTurretRangeCircle()
+  local turret = self.level.knight.facingTurret
+
+  local lookingAtPosition = self.level.knight:getCenterOfLookingAt()
+  lg.setColor(255, 255, 0, 100)
+  lg.circle("fill", lookingAtPosition.x, lookingAtPosition.y, turret.range)
+
+  lg.setColor(200, 200, 0, 150)
+  lg.circle("line", lookingAtPosition.x, lookingAtPosition.y, turret:getRangeUpgrade())
+end
+
+function InGame:showBaseTurretRangeCircle()
+  local lookingAtPosition = self.level.knight:getCenterOfLookingAt()
+
+  lg.setColor(255, 255, 0, 100)
+  lg.circle("line", lookingAtPosition.x, lookingAtPosition.y, 200)
+
+  lg.draw(self.baseGun, lookingAtPosition.x - (self.baseGun:getWidth() / 2), lookingAtPosition.y - (self.baseGun:getHeight() / 2))
+end
+
+function InGame:showBuildThoughtBubble()
+  local knightX = (self.level.knight.position.x - 1) * self.level.tilesize
+  local knightY = (self.level.knight.position.y - 2) * self.level.tilesize
+
+  local x = knightX - self.thoughtBubble:getWidth()
+  local y = knightY - self.thoughtBubble:getHeight()
+
+  lg.setColor(255, 255, 255, 200)
+  lg.draw(self.thoughtBubble, x, y)
+
+  lg.draw(self.baseGun, x + 10, y + 20)
+  lg.draw(self.knightDosh, x + 60, y + 20)
+
+  lg.setColor(0, 0, 0, 200)
+  lg.setFont(self.smallUiFont)
+  lg.print("x 50", x + 110, y + 30)
+
+  lg.setColor(255, 255, 255)
+end
+
+function InGame:showUpgradeThoughtBubble()
+  local turret = self.level.knight.facingTurret
+
+  local upgradeBaseCost = 100
+
+  local knightX = (self.level.knight.position.x - 1) * self.level.tilesize
+  local knightY = (self.level.knight.position.y - 2) * self.level.tilesize
+
+  local x = knightX - self.thoughtBubble:getWidth()
+  local y = knightY - self.thoughtBubble:getHeight()
+
+  lg.setColor(255, 255, 255, 200)
+  lg.draw(self.thoughtBubble, x, y)
+
+  lg.draw(self.baseGun, x + 10, y + 20)
+  lg.draw(self.upgradeArrow, x + 10, y + 20)
+  lg.draw(self.knightDosh, x + 60, y + 20)
+
+  lg.setColor(0, 0, 0, 200)
+  lg.setFont(self.smallUiFont)
+  lg.print("x "..upgradeBaseCost*turret.upgradeLevel, x + 110, y + 30)
+
+  lg.setColor(255, 255, 255)
+end
+
 function InGame:draw()
   self.level:draw()
 
   if self.level.knight.facingTurret then
-    local turret = self.level.knight.facingTurret
-
-    local lookingAtPosition = self.level.knight:getCenterOfLookingAt()
-    lg.setColor(255, 255, 0, 100)
-    lg.circle("fill", lookingAtPosition.x, lookingAtPosition.y, turret.range)
-
-    lg.setColor(200, 200, 0, 150)
-    lg.circle("line", lookingAtPosition.x, lookingAtPosition.y, turret:getRangeUpgrade())
+    self:showTurretRangeCircle()
+    self:showUpgradeThoughtBubble()
   elseif self.level.knight.facingWall then
-    local lookingAtPosition = self.level.knight:getCenterOfLookingAt()
-
-    lg.setColor(255, 255, 0, 100)
-    lg.circle("line", lookingAtPosition.x, lookingAtPosition.y, 200)
+    self:showBaseTurretRangeCircle()
+    self:showBuildThoughtBubble()
   end
 
   lg.setColor(255, 255, 255)
