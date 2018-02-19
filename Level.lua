@@ -81,19 +81,19 @@ function Level:loadFromImage(path)
 			if r == 255 and g == 0 and b == 0 then
 				local spawnEnemies = levelData.enemySpawns["red"].enemies
 				local spawnDelay = levelData.enemySpawns["red"].spawnDelay
-				self.enemySpawns["red"] = EnemySpawn:new({x = x, y = y}, self, spawnEnemies, spawnDelay)
+				self.enemySpawns["red"] = EnemySpawn:new({x = x, y = y}, self, spawnEnemies, spawnDelay, "red")
 			end
 
 			if r == 0 and g == 255 and b == 0 then
 				local spawnEnemies = levelData.enemySpawns["green"].enemies
 				local spawnDelay = levelData.enemySpawns["green"].spawnDelay
-				self.enemySpawns["green"] = EnemySpawn:new({x = x, y = y}, self, spawnEnemies, spawnDelay)
+				self.enemySpawns["green"] = EnemySpawn:new({x = x, y = y}, self, spawnEnemies, spawnDelay, "green")
 			end
 
 			if r == 0 and g == 0 and b == 255 then
 				local spawnEnemies = levelData.enemySpawns["blue"].enemies
 				local spawnDelay = levelData.enemySpawns["blue"].spawnDelay
-				self.enemySpawns["blue"] = EnemySpawn:new({x = x, y = y}, self, spawnEnemies, spawnDelay)
+				self.enemySpawns["blue"] = EnemySpawn:new({x = x, y = y}, self, spawnEnemies, spawnDelay, "blue")
 			end
 
 			if r == 255 and g == 0 and b == 255 then
@@ -173,8 +173,6 @@ function Level:draw()
 
   	self.knight:draw()
 	self.princess:draw()
-
-
 end
 
 function Level:getPathFindingMap()

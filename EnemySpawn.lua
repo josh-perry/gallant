@@ -8,14 +8,14 @@ local lg = love.graphics
 
 local EnemySpawn = class("EnemySpawn")
 
-function EnemySpawn:initialize(position, level, enemyList, spawnDelay)
+function EnemySpawn:initialize(position, level, enemyList, spawnDelay, colour)
 	self.position = position
 	self.level = level
 
 	self.enemies = enemyList
 	self.spawnDelay = spawnDelay
 
-	self.sprite = lg.newImage("graphics/sprites/spawn.png")
+	self.sprite = lg.newImage("graphics/sprites/spawn"..colour..".png")
 
 	self.spawnTimer = cron.every(spawnDelay, function() self:spawnEnemy() end)
 end
