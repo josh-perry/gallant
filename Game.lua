@@ -89,9 +89,9 @@ function Game:nextLevel()
 end
 
 function Game:keypressed(key, unicode)
-	if key == "left" then
+	if key == "left" or key == "a" then
 		self:previousLevel()
-	elseif key == "right" then
+	elseif key == "right" or key == "d" then
 		self:nextLevel()
 	end
 end
