@@ -66,14 +66,17 @@ end
 function Knight:getFacingTurret()
 	local position = nil
 
+	local x = math.floor(self.position.x + 0.5)
+	local y = math.floor(self.position.y + 0.5)
+
 	if self.facing == "left" then
-		position = {x = self.position.x - 1, y = self.position.y}
+		position = {x = x - 1, y = y}
 	elseif self.facing == "right" then
-		position = {x = self.position.x + 1, y = self.position.y}
+		position = {x = x + 1, y = y}
 	elseif self.facing == "up" then
-		position = {x = self.position.x, y = self.position.y - 1}
+		position = {x = x, y = y - 1}
 	elseif self.facing == "down" then
-		position = {x = self.position.x, y = self.position.y + 1}
+		position = {x = x, y = y + 1}
 	else
 		return nil
 	end
@@ -121,14 +124,17 @@ function Knight:buildGun(gunCost)
 
 	local gun = nil
 
+	local x = math.floor(self.position.x + 0.5)
+	local y = math.floor(self.position.y + 0.5)
+
 	if self.facing == "left" then
-		gun = Gun:new({x = self.position.x - 1, y = self.position.y}, self.level)
+		gun = Gun:new({x = x - 1, y = y}, self.level)
 	elseif self.facing == "right" then
-		gun = Gun:new({x = self.position.x + 1, y = self.position.y}, self.level)
+		gun = Gun:new({x = x + 1, y = y}, self.level)
 	elseif self.facing == "up" then
-		gun = Gun:new({x = self.position.x, y = self.position.y - 1}, self.level)
+		gun = Gun:new({x = x, y = y - 1}, self.level)
 	elseif self.facing == "down" then
-		gun = Gun:new({x = self.position.x , y = self.position.y + 1}, self.level)
+		gun = Gun:new({x = x , y = y + 1}, self.level)
 	else
 		return
 	end
