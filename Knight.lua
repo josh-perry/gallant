@@ -1,5 +1,6 @@
 -- Libraries
 local class = require("libs/middleclass/middleclass")
+local cron = require("libs/cron/cron")
 
 local Gun = require("Gun")
 
@@ -12,14 +13,49 @@ local Knight = class("Knight", MovableEntity)
 function Knight:initialize(position, level)
 	self.sprite = lg.newImage("graphics/sprites/knight.png")
 	self.spriteLeft = lg.newImage("graphics/sprites/knight_left.png")
+	self.knightShadow = lg.newImage("graphics/sprites/knight_shadow.png")
 
 	self.facingWall = false
 	self.facingTurret = nil
 
 	MovableEntity.initialize(self, position, level)
+
+	self.yOffset = 0
+	self.yTargetOffset = 0
+	self.ySpeed = 100
+	self.yFinished = true
+	self.yMaxOffset = 16
 end
 
 function Knight:update(dt)
+	if self:isMoving() then
+		if self.yFinished then
+			if self.yTargetOffset == 0 then
+				self.yTargetOffset = -self.yMaxOffset
+			elseif self.yTargetOffset == -self.yMaxOffset then
+				self.yTargetOffset = 0
+			end
+
+			self.yFinished = false
+		end
+	end
+
+	if self.yOffset < self.yTargetOffset then
+		self.yOffset = self.yOffset + (self.ySpeed * dt)
+
+		if self.yOffset > self.yTargetOffset then
+			self.yOffset = self.yTargetOffset
+			self.yFinished = true
+		end
+	elseif self.yOffset > self.yTargetOffset then
+		self.yOffset = self.yOffset - (self.ySpeed * dt)
+
+		if self.yOffset > self.yTargetOffset then
+			self.yOffset = self.yTargetOffset
+			self.yFinished = true
+		end
+	end
+
 	self.facingWall = self:lookingAtWall()
 	self.facingTurret = self:getFacingTurret()
 
@@ -105,7 +141,10 @@ function Knight:draw()
 	local x = (self.position.x - 1) * self.level.tilesize
 	local y = (self.position.y - 1) * self.level.tilesize
 
-	local yOffset = -48
+	local yOffset = -48 + self.yOffset
+
+	lg.setColor(255, 255, 255, 200)
+	lg.draw(self.knightShadow, x, y - 48)
 
 	lg.setColor(255, 255, 255)
 
