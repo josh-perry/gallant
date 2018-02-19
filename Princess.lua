@@ -19,7 +19,7 @@ function Princess:draw()
 	local y = (self.position.y - 1) * self.level.tilesize
 
 	lg.setColor(255, 255, 255)
-	lg.draw(self.sprite, x, y)
+	lg.draw(self.sprite, x, y - 48)
 end
 
 return Princess
