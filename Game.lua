@@ -19,6 +19,10 @@ function Game:initialize()
 
 	self.leftArrow = lg.newImage("graphics/ui/leftarrow.png")
 	self.rightArrow = lg.newImage("graphics/ui/rightarrow.png")
+	self.backgroundWall = lg.newImage("graphics/ui/background.png")
+
+	self.uiFont = lg.newFont("fonts/vinque.ttf", 32)
+	self.titleFont = lg.newFont("fonts/vinque.ttf", 72)
 
 	self.showingLevel = 1
 end
@@ -38,6 +42,9 @@ function Game:getLevelData()
 end
 
 function Game:draw()
+	lg.draw(self.backgroundWall, 0, 0)
+	lg.draw(self.background, 0, 0)
+
 	if self.showingLevel < table.getn(self.levels) then
 		lg.draw(self.rightArrow, 762, 207)
 	end
@@ -46,19 +53,19 @@ function Game:draw()
 		lg.draw(self.leftArrow, 388, 207)
 	end
 
-	local width = self.pressStart:getWidth()
-	local height = self.pressStart:getHeight()
+	lg.setFont(self.uiFont)
+	lg.print("Press space to start!", 500, 500 + self.pressStartRotation)
 
-	lg.draw(self.background, 0, 0)
-	lg.draw(self.pressStart, 500 + (width/2), 500 + (height/2), self.pressStartRotation, 1, 1, width/2, height/2)
+	lg.setFont(self.titleFont)
+	lg.printf("Gallant", 0, 50, lg:getWidth(), "center")
 
 	lg.draw(self.levelImage, 564, 195, 0, 9, 9)
 end
 
 function Game:update(dt)
-	self.runningTime = self.runningTime + dt
+	self.runningTime = self.runningTime + (dt * 5)
 
-	self.pressStartRotation = math.sin(self.runningTime) / 4
+	self.pressStartRotation = math.sin(self.runningTime) * 10
 end
 
 function Game:previousLevel()
