@@ -94,13 +94,13 @@ end
 function Knight:getMoveIntention()
 	local moveIntention = nil
 
-	if lk.isDown("a") then
+	if lk.isDown("a") or lk.isDown("left") then
 		moveIntention = "left"
-	elseif lk.isDown("d") then
+	elseif lk.isDown("d") or lk.isDown("right") then
 		moveIntention = "right"
-	elseif lk.isDown("s") then
+	elseif lk.isDown("s") or lk.isDown("down") then
 		moveIntention = "down"
-	elseif lk.isDown("w") then
+	elseif lk.isDown("w") or lk.isDown("up") then
 		moveIntention = "up"
 	end
 
