@@ -16,6 +16,8 @@ function MovableEntity:initialize(position, level)
 	self.level = level
 	self.facing = "down"
 
+	self.lrFacing = "right"
+
 	self.size = { w = level.tilesize, h = level.tilesize }
 	self.speed = 5
 end
@@ -33,6 +35,10 @@ function MovableEntity:updateMovement(dt)
 
 	if self.moveIntention ~= nil then
 		self.facing = self.moveIntention
+
+		if self.moveIntention == "left" or self.moveIntention == "right" then
+			self.lrFacing = self.moveIntention
+		end
 	end
 
 	local moving = self:isMoving()

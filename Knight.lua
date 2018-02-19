@@ -11,6 +11,7 @@ local Knight = class("Knight", MovableEntity)
 
 function Knight:initialize(position, level)
 	self.sprite = lg.newImage("graphics/sprites/knight.png")
+	self.spriteLeft = lg.newImage("graphics/sprites/knight_left.png")
 
 	self.facingWall = false
 	self.facingTurret = nil
@@ -107,7 +108,12 @@ function Knight:draw()
 	local yOffset = -48
 
 	lg.setColor(255, 255, 255)
-	lg.draw(self.sprite, x, y + yOffset)
+
+	if self.lrFacing == "left" then
+		lg.draw(self.spriteLeft, x, y + yOffset)
+	else
+		lg.draw(self.sprite, x, y + yOffset)
+	end
 end
 
 return Knight
