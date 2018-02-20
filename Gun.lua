@@ -27,6 +27,27 @@ function Gun:initialize(position, level)
 
 	self.fireRate = 0.8
 	self:refreshFireTimer()
+
+	self.shootSounds = {
+		love.audio.newSource("sounds/shoot.ogg", "static"),
+		love.audio.newSource("sounds/shoot.ogg", "static"),
+		love.audio.newSource("sounds/shoot.ogg", "static"),
+		love.audio.newSource("sounds/shoot.ogg", "static"),
+		love.audio.newSource("sounds/shoot.ogg", "static")
+	}
+end
+
+function Gun:playSound(sources, volume)
+    for _, source in ipairs(sources) do
+        if source:isStopped() then
+    		if volume then
+    			source:setVolume(volume)
+    		end
+
+            source:play()
+            return
+        end
+    end
 end
 
 function Gun:refreshFireTimer()
@@ -45,6 +66,8 @@ function Gun:fire()
 	bullet.size = bullet.size + (bullet.size * (0.5 * self.upgradeLevel))
 	bullet.damage = bullet.damage + self.upgradeLevel
 	table.insert(self.level.bullets, bullet)
+
+	self:playSound(self.shootSounds, 0.05)
 end
 
 function Gun:draw()

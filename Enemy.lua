@@ -18,6 +18,31 @@ function Enemy:initialize(position, level)
 	MovableEntity.initialize(self, position, level)
 
 	self.speed = 5
+
+	self.hitSounds = {
+		love.audio.newSource("sounds/splat.ogg", "static"),
+		love.audio.newSource("sounds/splat.ogg", "static"),
+		love.audio.newSource("sounds/splat.ogg", "static"),
+		love.audio.newSource("sounds/splat.ogg", "static"),
+		love.audio.newSource("sounds/splat.ogg", "static")
+	}
+
+	self.deathSounds = {
+		love.audio.newSource("sounds/enemy death.ogg", "static")
+	}
+end
+
+function Enemy:playSound(sources, volume)
+    for _, source in ipairs(sources) do
+        if source:isStopped() then
+    		if volume then
+    			source:setVolume(volume)
+    		end
+
+            source:play()
+            return
+        end
+    end
 end
 
 function Enemy:getMoveIntention()
@@ -85,6 +110,10 @@ function Enemy:damage(damage)
 		local y = math.floor(self.position.y + 0.5)
 		local currentTile = self.level.tiles[x][y]
 		currentTile.floorDosh = currentTile.floorDosh + self.dosh
+
+		self:playSound(self.deathSounds, 0.1)
+	else
+		self:playSound(self.hitSounds, 0.5)
 	end
 end
 

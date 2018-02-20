@@ -25,6 +25,43 @@ function Knight:initialize(position, level)
 	self.ySpeed = 100
 	self.yFinished = true
 	self.yMaxOffset = 16
+
+	self.dropSounds = {
+		love.audio.newSource("sounds/knight drop.ogg", "static"),
+		love.audio.newSource("sounds/knight drop.ogg", "static"),
+		love.audio.newSource("sounds/knight drop.ogg", "static"),
+		love.audio.newSource("sounds/knight drop.ogg", "static"),
+		love.audio.newSource("sounds/knight drop.ogg", "static")
+	}
+
+	self.buildSounds = {
+		love.audio.newSource("sounds/wooden thump.ogg", "static"),
+		love.audio.newSource("sounds/wooden thump.ogg", "static"),
+		love.audio.newSource("sounds/wooden thump.ogg", "static"),
+		love.audio.newSource("sounds/wooden thump.ogg", "static"),
+		love.audio.newSource("sounds/wooden thump.ogg", "static")
+	}
+
+	self.gunSounds = {
+		love.audio.newSource("sounds/gun cocking.ogg", "static"),
+		love.audio.newSource("sounds/gun cocking.ogg", "static"),
+		love.audio.newSource("sounds/gun cocking.ogg", "static"),
+		love.audio.newSource("sounds/gun cocking.ogg", "static"),
+		love.audio.newSource("sounds/gun cocking.ogg", "static")
+	}
+end
+
+function Knight:playSound(sources, volume)
+    for _, source in ipairs(sources) do
+        if source:isStopped() then
+    		if volume then
+    			source:setVolume(volume)
+    		end
+
+            source:play()
+            return
+        end
+    end
 end
 
 function Knight:update(dt)
@@ -53,6 +90,8 @@ function Knight:update(dt)
 		if self.yOffset > self.yTargetOffset then
 			self.yOffset = self.yTargetOffset
 			self.yFinished = true
+
+			self:playSound(self.dropSounds, 0.02)
 		end
 	end
 
@@ -141,6 +180,9 @@ function Knight:buildGun(gunCost)
 
 	table.insert(self.level.guns, gun)
 	self.level.dosh = self.level.dosh - gunCost
+
+	self:playSound(self.buildSounds)
+	self:playSound(self.gunSounds)
 end
 
 function Knight:draw()
